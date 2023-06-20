@@ -23,9 +23,21 @@ export default function App() {
             <NavigationMenu
               navigationLinks={[
                 {
-                  label: t("NavigationMenu.pageName"),
-                  destination: "/pagename",
+                  label: t("NavigationMenu.home"),
+                  destination: "/home",
                 },
+                {
+                  label: t("NavigationMenu.campaigns"),
+                  destination: "/campaigns",
+                },
+                {
+                  label: t("NavigationMenu.reports"),
+                  destination: "/reports",
+                },
+                {
+                  label: t("NavigationMenu.assets"),
+                  destination: "/assets",
+                }
               ]}
             />
             <Routes pages={pages} />

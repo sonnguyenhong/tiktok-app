@@ -10,7 +10,14 @@ export default function Campaigns() {
         title={t("PageName.title")}
         primaryAction={{
           content: t("PageName.primaryAction"),
-          onAction: () => console.log("Primary action"),
+          onAction: async () => {
+            const response = await fetch('/api/authorization', {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+            });
+            const data = await response.json();
+            console.log(data);
+          },
         }}
         secondaryActions={[
           {

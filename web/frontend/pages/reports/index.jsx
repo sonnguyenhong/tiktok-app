@@ -1,9 +1,9 @@
 import { Card, Page, Layout, TextContainer, Text } from "@shopify/polaris";
 import { TitleBar, useNavigate } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
-import BarChart from "../../components/CapaignTabComponent/BarChart";
-import LineChart from "../../components/CapaignTabComponent/LineChart";
-import PieChart from "../../components/CapaignTabComponent/PieChart";
+import BarChart from "../../components/BarChart";
+import LineChart from "../../components/LineChart";
+import PieChart from "../../components/PieChart";
 
 //fakedata
 import dataBarChart from "./FakeDataBarChart";

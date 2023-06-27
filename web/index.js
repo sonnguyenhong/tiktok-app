@@ -7,7 +7,11 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+import dotenv from 'dotenv';
+import applyTiktokEndpoint from "./routes/index.js";
 
+dotenv.config();
+console.log(process.env.TIKTOK_API_SECRET)
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10
@@ -35,6 +39,7 @@ app.post(
 // If you are adding routes outside of the /api path, remember to
 // also add a proxy rule for them in web/frontend/vite.config.js
 
+applyTiktokEndpoint(app);
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());

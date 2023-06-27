@@ -33,36 +33,34 @@ export default function Home() {
         </Layout.Section>
         <Layout.Section>
           {/* Second row - Grid layout */}
-          <Card title="Grid Layout" sectioned>
             <div style={{heigh: '40px', display: 'flex', justifyContent: 'space-between'}}>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="Impression" isIncrease={true} value={1600} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="Clicks" isIncrease={true} value={2021} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="Spend" isIncrease={false} value={56} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="CPC" isIncrease={true} value={123} percent={16}/>
                </div>
             </div>
             <div style={{heigh: '40px', display: 'flex', justifyContent: 'space-between'}}>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="CPM" isIncrease={true} value={158} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="CTR" isIncrease={false} value={324} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="Conversions" isIncrease={true} value={2006} percent={16}/>
                </div>
-               <div style={{flex: 1, margin: 8, border: '2px solid', borderRadius: 5}}>
+               <div style={{flex: 1, margin: 8, borderRadius: 5}}>
                 <Statistic name="Result" isIncrease={true} value={2512} percent={16}/>
                </div>
             </div>
-          </Card>
         </Layout.Section>
       </Layout>
     </Page>

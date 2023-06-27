@@ -9,13 +9,18 @@ export function LineChart() {
   useEffect(() => {
     (async function() {
       const data = [
-        { year: 2010, count: 10 },
-        { year: 2011, count: 20 },
-        { year: 2012, count: 15 },
-        { year: 2013, count: 25 },
-        { year: 2014, count: 22 },
-        { year: 2015, count: 30 },
-        { year: 2016, count: 28 },
+        { month: 'Jan', count: 1068 },
+        { month: 'Feb', count: 1859 },
+        { month: 'Mar', count: 1525 },
+        { month: 'Apr', count: 1632 },
+        { month: 'May', count: 1666 },
+        { month: 'Jun', count: 1589 },
+        { month: 'Jul', count: 1587 },
+        { month: 'Aug', count: 1752 },
+        { month: 'Sep', count: 1686 },
+        { month: 'Oct', count: 1668 },
+        { month: 'Nov', count: 1744 },
+        { month: 'Dec', count: 1800 },
       ];
     
       new Chart(
@@ -23,10 +28,10 @@ export function LineChart() {
         {
           type: 'line',
           data: {
-            labels: data.map(row => row.year),
+            labels: data.map(row => row.month),
             datasets: [
               {
-                label: 'Acquisitions by year',
+                label: 'Acquisitions by month',
                 data: data.map(row => row.count)
               }
             ]

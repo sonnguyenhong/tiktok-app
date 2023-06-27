@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { DropdownMinor } from "@shopify/polaris-icons";
 import React, { useState, useCallback } from 'react';
 import ToggleSwitch from "../../components/campaigns/toggle";
-
+import Filters from "../../components/campaigns/filter";
 
 export default function Campaigns() {
   const { t } = useTranslation();
@@ -151,6 +151,11 @@ export default function Campaigns() {
           </ButtonGroup>
         </Layout.Section>
         <Layout.Section >
+          <Filters>
+
+          </Filters>
+
+
           <LegacyCard>
             <IndexTable
               resourceName={resourceName}

@@ -14,7 +14,7 @@ import CampaignsStatus from "../../components/campaigns";
 
 export default function Campaigns() {
   const { t } = useTranslation();
-
+  console.log(process.env.BACKEND_PORT)
   const orders = [
     {
       id: '1020',
@@ -121,6 +121,15 @@ export default function Campaigns() {
     [],
   );
 
+
+  useEffect(async () => {
+    const response = await fetch("/api/campaigns", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json()
+    console.log(data);
+  }, [])
 
   return (
     <Page fullWidth>

@@ -42,7 +42,7 @@ export default function Campaigns() {
                     </Text>
                 </Layout.Section>
                 <Layout.Section>
-                    <div onMouseOver = {(event) => event.target.style.cursor = 'pointer'} onClick={() => navigate("/reports/TargetingAge")}>
+                    <div onMouseOver={(event) => event.target.style.cursor = 'pointer'} onClick={() => navigate("/reports/DetailsTargeting/TargetingAge")}>
                         <Card sectioned style={{ height: "300px" }}>
                             <Text variant="headingMd" as="h2">
                                 {t("Age")}
@@ -54,33 +54,34 @@ export default function Campaigns() {
                                 <BarChart data={dataBarChart} />
                             </div>
                         </Card>
-                        </div>
+                    </div>
                 </Layout.Section>
                 <Layout.Section secondary>
-                    <Card sectioned>
-                        <Text variant="headingMd" as="h2">
-                            {t("Gender")}
-                        </Text>
-                        {/* <TextContainer>
-                            <p>{t("PageName.why")}</p>
-                        </TextContainer> */}
-                        <div style={{ height: "400px" }}>
-                            <PieChart data={dataPieChart} />
-                        </div>
-                    </Card>
+                    <div onMouseOver={(event) => event.target.style.cursor = 'pointer'} onClick={() => navigate("/reports/DetailsTargeting/TargetingGender")}>
+                        <Card sectioned>
+                            <Text variant="headingMd" as="h2">
+                                {t("Gender")}
+                            </Text>
+
+                            <div style={{ height: "400px" }}>
+                                <PieChart data={dataPieChart} />
+                            </div>
+                        </Card>
+                    </div>
+
                 </Layout.Section>
                 <Layout.Section>
-                    <Card sectioned>
-                        <Text variant="headingMd" as="h2">
-                            {t("Country/Region")}
-                        </Text>
-                        {/* <TextContainer>
-                            <p>{t("PageName.why")}</p>
-                        </TextContainer> */}
-                        <div style={{ height: "450px" }}>
-                            <BarChart data={dataBarChart} />
-                        </div>
-                    </Card>
+                    <div onMouseOver={(event) => event.target.style.cursor = 'pointer'} onClick={() => navigate("/reports/DetailsTargeting/TargetingRegion")}>
+                        <Card sectioned>
+                            <Text variant="headingMd" as="h2">
+                                {t("Country/Region")}
+                            </Text>
+
+                            <div style={{ height: "450px" }}>
+                                <BarChart data={dataBarChart} />
+                            </div>
+                        </Card>
+                    </div>
                 </Layout.Section>
                 <Layout.Section>
                     <Text variant="headingMd" as="h2">
@@ -88,17 +89,20 @@ export default function Campaigns() {
                     </Text>
                 </Layout.Section>
                 <Layout.Section>
-                    <Card sectioned>
-                        {/* <Text variant="headingMd" as="h2">
+                    <div onMouseOver={(event) => event.target.style.cursor = 'pointer'} onClick={() => navigate("/reports/DetailsTargeting/TargetingProducts")}>
+                        <Card sectioned>
+                            {/* <Text variant="headingMd" as="h2">
                             {t("Product")}
                         </Text> */}
-                        {/* <TextContainer>
+                            {/* <TextContainer>
                             <p>{t("PageName.why")}</p>
                         </TextContainer> */}
-                        <div style={{ height: "300px" }}>
-                            <LineChart data={dataLineChart} />
-                        </div>
-                    </Card>
+                            <div style={{ height: "300px" }}>
+                                <LineChart data={dataLineChart} />
+                            </div>
+                        </Card>
+                    </div>
+
                 </Layout.Section>
             </Layout>
         </Page>

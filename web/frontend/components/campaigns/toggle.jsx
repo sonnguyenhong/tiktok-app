@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './toggle.css'
 function ToggleSwitch(props) {
+    const { onToggle, status } = props
+    const [isOn, setIsOn] = useState(status);
+    const inputRef = useRef(null)
 
-    const [isOn, setIsOn] = useState(props.status);
-    // if (props.status) {
-    //     const [isOn, setIsOn] = useState(true);
-    // }
-    // else {
-    //     const [isOn, setIsOn] = useState(false);
-    // }
-
-    const handleToggle = () => {
+    const handleToggle = (e) => {
         setIsOn(!isOn);
     };
 
+    useEffect(() => {
+        if (onToggle) {
+            onToggle(isOn)
+        }
+    }, [isOn])
+
     return (
-        <div className="switch">
+        <div onClick={() => { inputRef.current.click() }} className="switch">
             <input
+                ref={inputRef}
                 type="checkbox"
                 checked={isOn}
-                onClick={handleToggle}
+                onChange={handleToggle}
                 id="toggleSwitch"
-
             />
             <span class="slider round"></span>
         </div>

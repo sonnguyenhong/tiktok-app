@@ -14,7 +14,6 @@ import CampaignsStatus from "../../components/campaigns";
 
 export default function Campaigns() {
   const { t } = useTranslation();
-  console.log(process.env.BACKEND_PORT)
   const navigate = useNavigate();
   const orders = [
     {

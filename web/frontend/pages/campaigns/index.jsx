@@ -2,7 +2,7 @@ import {
   Page, Layout, IndexTable, LegacyCard, Popover, ActionList,
   Text, ButtonGroup, Button, Icon, useIndexResourceState, Badge
 } from "@shopify/polaris";
-import { TitleBar } from "@shopify/app-bridge-react";
+import { TitleBar, useNavigate } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { DropdownMinor } from "@shopify/polaris-icons";
 import React, { useState, useCallback, useEffect } from 'react';
@@ -15,6 +15,7 @@ import CampaignsStatus from "../../components/campaigns";
 export default function Campaigns() {
   const { t } = useTranslation();
   console.log(process.env.BACKEND_PORT)
+  const navigate = useNavigate();
   const orders = [
     {
       id: '1020',
@@ -139,8 +140,7 @@ export default function Campaigns() {
       <Layout>
         <Layout.Section>
           <ButtonGroup>
-            <Button primary> Create</Button>
-
+            <Button primary onClick={() => navigate("/campaigns/newCampaign")}> Create</Button>
             <div >
               <Popover
                 active={active}

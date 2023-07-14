@@ -1,0 +1,13 @@
+.wrapper {
+    --darkGrey: rgba(39, 39, 42, 50%);
+    --lightGrey: rgba(39, 39, 42, 25%);
+    --fontSize14: 14px;
+    --fontSize12: 12px;
+
+    .title{
+        margin-top: 25px;
+        margin-bottom: 15px;
+        color: var(--darkGrey);
+        font-size: var(--fontSize14);
+    }
+}

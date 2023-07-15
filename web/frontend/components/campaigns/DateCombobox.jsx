@@ -31,7 +31,5 @@ export default function MaterialDatePicker(props) {
 
             />
         </MuiPickersUtilsProvider>
-
-
     );
 }

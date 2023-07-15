@@ -7,9 +7,17 @@ import {
   Stack,
   Link,
   Text,
+  LegacyCard,
+  AlphaCard,
+  Avatar,
+  Button,
+  HorizontalStack
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
+import { InlineLayout, View } from "@shopify/checkout-ui-extensions-react";
 import { useTranslation, Trans } from "react-i18next";
+import ShopDisplay from "../components/connect/ShopDisplay";
+import UserPixel from "../components/connect/UserPixel";
 
 import { trophyImage } from "../assets";
 
@@ -21,7 +29,7 @@ export default function HomePage() {
   const { t } = useTranslation();
 
   const [tiktokSession, setTiktokSession] = useState(null);
-  
+
   const {
     data,
     isLoading,
@@ -43,7 +51,7 @@ export default function HomePage() {
     })
   }, [data])
 
-  if(tiktokSession) {
+  if (tiktokSession) {
     return (
       <Page narrowWidth>
         {tiktokSession.advertiser_ids.map(i => <p>{i}</p>)}
@@ -53,8 +61,8 @@ export default function HomePage() {
 
     return (
       <Page narrowWidth>
-        <TitleBar 
-          title={t("HomePage.title")} 
+        <TitleBar
+          title={t("HomePage.title")}
           primaryAction={{
             content: t("HomeTab.primaryAction"),
             onAction: () => {
@@ -68,78 +76,63 @@ export default function HomePage() {
               content: t("HomeTab.secondaryAction"),
               onAction: () => console.log("Secondary action"),
             },
-          ]} 
+          ]}
         />
         <Layout>
           <Layout.Section>
-            <Card sectioned>
-              <Stack
-                wrap={false}
-                spacing="extraTight"
-                distribution="trailing"
-                alignment="center"
+
+            <LegacyCard >
+              <LegacyCard.Header
+                title={"Tiktok for business"}
               >
-                <Stack.Item fill>
-                  <TextContainer spacing="loose">
-                    <Text as="h2" variant="headingMd">
-                      {t("HomePage.heading")}
-                    </Text>
-                    <p>
-                      <Trans
-                        i18nKey="HomePage.yourAppIsReadyToExplore"
-                        components={{
-                          PolarisLink: (
-                            <Link url="https://polaris.shopify.com/" external />
-                          ),
-                          AdminApiLink: (
-                            <Link
-                              url="https://shopify.dev/api/admin-graphql"
-                              external
-                            />
-                          ),
-                          AppBridgeLink: (
-                            <Link
-                              url="https://shopify.dev/apps/tools/app-bridge"
-                              external
-                            />
-                          ),
-                        }}
-                      />
-                    </p>
-                    <p>{t("HomePage.startPopulatingYourApp")}</p>
-                    <p>
-                      <Trans
-                        i18nKey="HomePage.learnMore"
-                        components={{
-                          ShopifyTutorialLink: (
-                            <Link
-                              url="https://shopify.dev/apps/getting-started/add-functionality"
-                              external
-                            />
-                          ),
-                        }}
-                      />
-                    </p>
-                  </TextContainer>
-                </Stack.Item>
-                <Stack.Item>
-                  <div style={{ padding: "0 20px" }}>
-                    <Image
-                      source={trophyImage}
-                      alt={t("HomePage.trophyAltText")}
-                      width={120}
-                    />
+              </LegacyCard.Header>
+              <LegacyCard.Section>
+                <Text as="p" >Having trouble connecting account?</Text>
+                <AlphaCard padding={"6"} >
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div style={{ paddingRight: "15px" }}><Avatar customer></Avatar></div>
+                      <div><Text>Connect TikTok for business</Text> </div>
+                    </div>
+                    <div><Button primary >Connect</Button> </div>
                   </div>
-                </Stack.Item>
-              </Stack>
-            </Card>
+                </AlphaCard>
+              </LegacyCard.Section>
+            </LegacyCard>
+
+            <LegacyCard>
+              <LegacyCard.Header title={"Tiktok Ads Manager"}>
+              </LegacyCard.Header>
+              <LegacyCard.Section>
+                <Text as="p">You can access and manage all of your TikTok ads here</Text>
+
+                <ShopDisplay></ShopDisplay>
+                <ShopDisplay></ShopDisplay>
+              </LegacyCard.Section>
+            </LegacyCard>
+
+            <LegacyCard>
+              <LegacyCard.Header title={"Sharing data"}>
+              </LegacyCard.Header>
+              <LegacyCard.Section>
+                <Text as="h3">TikTok Pixels use first-party and third -party cookies to measure events, maximize campaign performance and personalize ads.</Text>
+              </LegacyCard.Section>
+              <LegacyCard.Section>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div><UserPixel></UserPixel> </div>
+                  <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+                    <div style={{ paddingRight: "20px" }}><Button plain> Create pixel</Button></div>
+                    <div><Button primary>Connect</Button></div>
+                  </div>
+                </div>
+              </LegacyCard.Section>
+            </LegacyCard>
           </Layout.Section>
           <Layout.Section>
-            <ProductsCard />
+
           </Layout.Section>
         </Layout>
       </Page>
     );
   }
-
 }

@@ -134,8 +134,7 @@ function TargetingAutomatic() {
             />
             <div className={styles.above18}>
                 <div className={styles.checkBoxArea}>
-                    <Checkbox checked={checkedAbove18} onChange={handleCheckedAbove18} />
-                    <span className={styles.title}>Chỉ nhắm mục tiêu độ tuổi trên 18</span>
+                    <Checkbox checked={checkedAbove18} onChange={handleCheckedAbove18} label = "Chỉ nhắm mục tiêu độ tuổi trên 18"/>
                 </div>
                 <div className={styles.explanation}>
                     Theo mặc định quảng cáo có thể nhắm mục tiêu đến tất cả các độ tuổi. Chọn tùy chọn này nếu khu vực

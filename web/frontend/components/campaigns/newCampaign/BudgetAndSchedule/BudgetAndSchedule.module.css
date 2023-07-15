@@ -54,3 +54,23 @@
         }
     }
 }
+
+.schedule {
+    margin-top: 25px;
+
+    .selectSchedule {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .runContinuously {
+        margin-top: 10px;
+    }
+
+    .validSelectDate{
+        margin-top: 5px;
+        color: red;
+    }
+}

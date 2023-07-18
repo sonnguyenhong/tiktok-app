@@ -69,22 +69,26 @@ app.get('/api/get-ads-profile', async (req, res) => {
   const secret = process.env.TIKTOK_API_SECRET;
   console.log('shopify session id: ', shopifySessionId);
   const tiktokAccessToken = await TiktokAccessTokenDB.getByShopifySessionId({ id: shopifySessionId });
-  const userInfor = await axios.get('https://business-api.tiktok.com/open_api/v1.3/user/info/', {
-    headers: {
-      'Access-Token': tiktokAccessToken.access_token,
-    }
-  })
-  const adsListInfor = await axios.get(`https://business-api.tiktok.com/open_api/v1.3/oauth2/advertiser/get?app_id=${appId}&secret=${secret}`, {
-    headers: {
-      'Access-Token': tiktokAccessToken.access_token,
-    }
-  });
-  console.log('adsListInfor', adsListInfor.data.data);
-  console.log('userInfor', userInfor.data.data);
+  let userInfor;
+  let adsListInfor;
+  if(tiktokAccessToken) {
+    userInfor = await axios.get('https://business-api.tiktok.com/open_api/v1.3/user/info/', {
+      headers: {
+        'Access-Token': tiktokAccessToken.access_token,
+      }
+    })
+    adsListInfor = await axios.get(`https://business-api.tiktok.com/open_api/v1.3/oauth2/advertiser/get?app_id=${appId}&secret=${secret}`, {
+      headers: {
+        'Access-Token': tiktokAccessToken.access_token,
+      }
+    });
+  }
+  console.log('adsListInfor', adsListInfor?.data.data);
+  console.log('userInfor', userInfor?.data.data);
   return res.status(200).send({
     tiktokAccessToken,
-    userInfor: userInfor.data.data,
-    adsListInfor: adsListInfor.data.data,
+    userInfor: userInfor?.data.data,
+    adsListInfor: adsListInfor?.data.data,
   });
 })
 

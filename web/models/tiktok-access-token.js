@@ -27,6 +27,16 @@ export const TiktokAccessTokenDB = {
     return rawResults[0];
   },
 
+  deleteByAccessToken: async function ({access_token}) {
+    await this.ready;
+    const query = `
+      DELETE FROM ${this.tiktokAccessTokenTableName}
+      WHERE access_token = ?;
+    `;
+    await this.__query(query, [access_token]);
+    return true;
+  },
+
   create: async function ({
     shop,
     shopify_session_id,

@@ -14,6 +14,8 @@ import dotenv from 'dotenv';
 import applyTiktokEndpoint from "./routes/index.js";
 import { APP_URL, SHOP_QUERY_PARAMS } from "./constants/app.constants.js";
 import { TiktokAccessTokenDB } from "./models/tiktok-access-token.js";
+import { TIKTOK_AUTH_HEADER } from "./constants/header.constants.js";
+import axios from "axios";
 
 dotenv.config();
 console.log(process.env.TIKTOK_API_SECRET)
@@ -60,25 +62,36 @@ app.post(
 applyTiktokEndpoint(app);
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
-app.get('/api/check-tiktok-auth', async (req, res) => {
-  // res.send(req.session.tiktokAccessToken);
+app.get('/api/get-ads-profile', async (req, res) => {
   const shopifySessionId = res.locals.shopify.session.id;
+  const accessToken = req.headers[TIKTOK_AUTH_HEADER];
+  const appId = process.env.TIKTOK_API_APP_ID;
+  const secret = process.env.TIKTOK_API_SECRET;
   console.log('shopify session id: ', shopifySessionId);
-  const response = await TiktokAccessTokenDB.getByShopifySessionId({ id: shopifySessionId });
-  console.log('123');
-  console.log('check response: ', response);
-  // const jsonResponse = await response.json();
-  // console.log('check - tiktok auth: ', jsonResponse);
-  return res.status(200).send(response);
+  const tiktokAccessToken = await TiktokAccessTokenDB.getByShopifySessionId({ id: shopifySessionId });
+  const userInfor = await axios.get('https://business-api.tiktok.com/open_api/v1.3/user/info/', {
+    headers: {
+      'Access-Token': tiktokAccessToken.access_token,
+    }
+  })
+  const adsListInfor = await axios.get(`https://business-api.tiktok.com/open_api/v1.3/oauth2/advertiser/get?app_id=${appId}&secret=${secret}`, {
+    headers: {
+      'Access-Token': tiktokAccessToken.access_token,
+    }
+  });
+  console.log('adsListInfor', adsListInfor.data.data);
+  console.log('userInfor', userInfor.data.data);
+  return res.status(200).send({
+    tiktokAccessToken,
+    userInfor: userInfor.data.data,
+    adsListInfor: adsListInfor.data.data,
+  });
 })
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/products/count", async (req, res) => {
-  // console.log(_req.headers)
-  console.log('sub req session: ', req.session)
-  console.log('locals shopify: ', res.locals.shopify)
   const countData = await shopify.api.rest.Product.count({
     session: res.locals.shopify.session,
   });

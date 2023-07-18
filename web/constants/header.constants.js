@@ -1,0 +1,1 @@
+export const TIKTOK_AUTH_HEADER = 'x-tiktok-access-token'

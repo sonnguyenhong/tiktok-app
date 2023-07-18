@@ -108,4 +108,13 @@ export default function applyTiktokEndpoint(app) {
         });
         return res.status(200).send(response.data);
     })
+
+    app.post('/api/logout-tiktok', async (req, res) => {
+        console.log('headers: ', req.headers);
+        const accessToken = req.headers[TIKTOK_AUTH_HEADER];
+        console.log('accessToken: ', accessToken);
+        const deletedToken = await TiktokAccessTokenDB.deleteByAccessToken({access_token: accessToken});
+        // console.log(deletedToken);
+        return res.status(200).send(deletedToken);
+    })
 }

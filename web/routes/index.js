@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TiktokAccessTokenDB } from '../models/tiktok-access-token.js';
 import { APP_URL, SHOP_QUERY_PARAMS } from "../constants/app.constants.js";
+import { TIKTOK_AUTH_HEADER } from "../constants/header.constants.js";
 
 export default function applyTiktokEndpoint(app) {
     /**
@@ -54,32 +55,25 @@ export default function applyTiktokEndpoint(app) {
         console.log('query: ', req.query);
         console.log(res.locals.shopify)
         const auth_code = req.query.auth_code;
+        const appId = process.env.TIKTOK_API_APP_ID;
+        const secret = process.env.TIKTOK_API_SECRET
         const response = await axios.post('https://business-api.tiktok.com/open_api/v1.3/oauth2/access_token/', {
-            app_id: process.env.TIKTOK_API_APP_ID,
+            app_id: appId,
             auth_code: auth_code,
-            secret: process.env.TIKTOK_API_SECRET
+            secret: secret
         }, {
             headers: {
                 "Content-Type": "application/json"
             }
         });
         console.log('tiktok auth response: ', response.data);
-        // res.cookie('accessToken', response.data.data.access_token);
-        // localStorage.setItem("x-tiktok-access-token", response.data.data.access_token);
         if(response.data.code === 0) {
-            // req.session.tiktokAccessToken = JSON.stringify(response.data.data);
-            // await req.session.save();
-            // console.log(req.session);
-
             await TiktokAccessTokenDB.create({
                 shop: 'quickstart-4a029195.myshopify.com',
                 shopify_session_id: 'offline_quickstart-4a029195.myshopify.com',
                 access_token: response.data.data.access_token,
                 advertiser_ids: response.data.data.advertiser_ids.join(",")
             })
-            // console.log(res.locals.shopify);
-            // res.locals.shopify.session['tiktok'] = req.session.tiktokAccessToken
-            // res.redirect('/api/success');
             res.redirect(`${APP_URL}?${SHOP_QUERY_PARAMS}`);
         } else {
             res.send('Login fail');
@@ -92,7 +86,26 @@ export default function applyTiktokEndpoint(app) {
         res.redirect(`${APP_URL}?${SHOP_QUERY_PARAMS}`);
     })
 
-    // app.get('/api/check-tiktok-auth', async (req, res) => {
-    //     res.send(req.session.tiktokAccessToken);
+    // app.get('/api/get-ads-profile', async (req, res) => {
+    //     const accessToken = req.headers[TIKTOK_AUTH_HEADER];
+    //     const appId = process.env.TIKTOK_API_APP_ID;
+    //     const secret = process.env.TIKTOK_API_SECRET;
+    //     const response = await axios.get(`https://business-api.tiktok.com/open_api/v1.3/oauth2/advertiser/get?app_id=${appId}&secret=${secret}`, {
+    //         headers: {
+    //             'Access-Token': accessToken,
+    //         }
+    //     });
+    //     return res.status(200).send(response);
     // })
+
+    app.get('/api/pixels', async (req, res) => {
+        const accessToken = req.headers[TIKTOK_AUTH_HEADER];
+        const advertiser_id = req.query.advertiser_id;
+        const response = await axios.get(`https://business-api.tiktok.com/open_api/v1.3/pixel/list?advertiser_id=${advertiser_id}`, {
+            headers: {
+                'Access-Token': accessToken,
+            }
+        });
+        return res.status(200).send(response.data);
+    })
 }
